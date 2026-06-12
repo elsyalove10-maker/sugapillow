@@ -4,7 +4,486 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neumorphism Login Form</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ==========================================================================
+           1. Design Tokens & Base Setup
+           ========================================================================== */
+        :root {
+            --bg-color: #e0e8f5;
+            --text-primary: #3a4750;
+            --text-muted: #75828d;
+            --accent: #4a6fa5;
+            --accent-hover: #3b5c8a;
+            --error: #e63946;
+            --success: #2a9d8f;
+
+            /* Neumorphic Shadow Pairs */
+            --neu-drop: 8px 8px 16px #b8c1d1, -8px -8px 16px #ffffff;
+            --neu-inner: inset 6px 6px 10px #b8c1d1, inset -6px -6px 10px #ffffff;
+            --neu-btn-drop: 5px 5px 10px #b8c1d1, -5px -5px 10px #ffffff;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* ==========================================================================
+           2. Layout & Containers
+           ========================================================================== */
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .login-card {
+            background-color: var(--bg-color);
+            padding: 40px 35px;
+            border-radius: 30px;
+            box-shadow: var(--neu-drop);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .login-header h2 {
+            font-size: 1.8rem;
+            margin-top: 15px;
+            color: var(--text-primary);
+        }
+
+        .login-header p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .neu-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
+            border-radius: 50%;
+            box-shadow: var(--neu-drop);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px;
+        }
+
+        .icon-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: var(--neu-inner);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent);
+        }
+
+        .icon-inner svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* ==========================================================================
+           3. Form Inputs & Floating Labels
+           ========================================================================== */
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            border-radius: 15px;
+            height: 55px;
+        }
+
+        .neu-input {
+            box-shadow: var(--neu-inner);
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0 20px 0 50px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            border-radius: 15px;
+        }
+
+        .password-group input {
+            padding-right: 55px;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .input-group input:focus ~ label,
+        .input-group input:not(:placeholder-shown) ~ label {
+            top: -12px;
+            left: 12px;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px #b8c1d1, -2px -2px 5px #ffffff;
+            color: var(--accent);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon svg {
+            width: 20px;
+            height: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .input-group input:focus ~ .input-icon svg {
+            color: var(--accent);
+        }
+
+        .error-message {
+            font-size: 0.78rem;
+            color: var(--error);
+            margin-top: 5px;
+            display: block;
+            padding-left: 10px;
+            min-height: 16px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .error-message.visible {
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           4. Interactive Elements
+           ========================================================================== */
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border: none;
+            background: var(--bg-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .neu-toggle {
+            box-shadow: var(--neu-btn-drop);
+        }
+
+        .neu-toggle:hover {
+            color: var(--accent);
+        }
+
+        .neu-toggle:active {
+            box-shadow: var(--neu-inner);
+        }
+
+        .password-toggle .eye-closed {
+            display: none;
+        }
+
+        .password-toggle.show .eye-open {
+            display: none;
+        }
+
+        .password-toggle.show .eye-closed {
+            display: block;
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+
+        .remember-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-wrapper input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            user-select: none;
+            transition: var(--transition-smooth);
+        }
+
+        .checkbox-label:hover {
+            color: var(--text-primary);
+        }
+
+        .neu-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            box-shadow: var(--neu-drop);
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-smooth);
+            background: var(--bg-color);
+        }
+
+        .neu-checkbox svg {
+            width: 14px;
+            height: 14px;
+            color: var(--accent);
+            transform: scale(0);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .remember-wrapper input[type="checkbox"]:checked + .checkbox-label .neu-checkbox {
+            box-shadow: var(--neu-inner);
+        }
+
+        .remember-wrapper input[type="checkbox"]:checked + .checkbox-label .neu-checkbox svg {
+            transform: scale(1);
+        }
+
+        .forgot-link, .signup-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .forgot-link:hover, .signup-link a:hover {
+            color: var(--accent-hover);
+        }
+
+        .neu-button {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 15px;
+            background-color: var(--bg-color);
+            color: var(--accent);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--neu-drop);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .neu-button:hover {
+            color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .neu-button:active {
+            box-shadow: var(--neu-inner);
+            transform: translateY(1px);
+        }
+
+        /* ==========================================================================
+           5. Loading & Divider
+           ========================================================================== */
+        .btn-loader {
+            display: none;
+        }
+
+        .neu-button.loading .btn-text {
+            display: none;
+        }
+
+        .neu-button.loading .btn-loader {
+            display: block;
+        }
+
+        .neu-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #b8c1d1;
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 3px;
+            background: var(--bg-color);
+            box-shadow: inset 1px 1px 2px #b8c1d1, inset -1px -1px 2px #ffffff;
+            border-radius: 5px;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           6. Social Login & Footer
+           ========================================================================== */
+        .social-login {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            height: 50px;
+            border: none;
+            background: var(--bg-color);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .neu-social {
+            box-shadow: var(--neu-btn-drop);
+        }
+
+        .neu-social:hover {
+            color: var(--accent);
+            transform: scale(1.03);
+        }
+
+        .neu-social:active {
+            box-shadow: var(--neu-inner);
+            transform: scale(0.98);
+        }
+
+        .social-btn svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           7. Success Overlay
+           ========================================================================== */
+        .success-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+
+        .success-message.active {
+            transform: translateY(0);
+        }
+
+        .success-message h3 {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin-top: 20px;
+        }
+
+        .success-message p {
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -99,11 +578,13 @@
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
                 </button>
-                <button type="button" class="social-btn neu-social">
+                
+                <a href="GANTI_DENGAN_LINK_GITHUB_KAMU" target="_blank" class="social-btn neu-social" style="text-decoration: none;">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
-                </button>
+                </a>
+                
                 <button type="button" class="social-btn neu-social">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
@@ -117,17 +598,104 @@
 
             <div class="success-message" id="successMessage">
                 <div class="success-icon neu-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
+                    <div class="icon-inner">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
                 </div>
                 <h3>Success!</h3>
-                <p>Redirecting to your dashboard...</p>
+                <p>Redirecting to your GitHub dashboard...</p>
             </div>
         </div>
     </div>
 
-    <script src="../../shared/js/form-utils.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const successOverlay = document.getElementById('successMessage');
+            const submitBtn = loginForm.querySelector('.login-btn');
+
+            // 1. Password Visibility Toggle
+            if (passwordToggle && passwordInput) {
+                passwordToggle.addEventListener('click', () => {
+                    const isPassword = passwordInput.getAttribute('type') === 'password';
+                    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                    passwordToggle.classList.toggle('show');
+                    passwordInput.focus();
+                });
+            }
+
+            // 2. Inline Validation Rules
+            const validateEmail = (email) => {
+                const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!email.trim()) return "Email address is required.";
+                if (!regex.test(email.trim())) return "Please enter a valid email address.";
+                return "";
+            };
+
+            const validatePassword = (password) => {
+                if (!password) return "Password is required.";
+                if (password.length < 6) return "Password must be at least 6 characters long.";
+                return "";
+            };
+
+            const showError = (element, message) => {
+                element.textContent = message;
+                element.classList.add('visible');
+            };
+
+            const clearError = (element) => {
+                element.textContent = "";
+                element.classList.remove('visible');
+            };
+
+            emailInput.addEventListener('input', () => {
+                if (!validateEmail(emailInput.value)) clearError(emailError);
+            });
+
+            passwordInput.addEventListener('input', () => {
+                if (!validatePassword(passwordInput.value)) clearError(passwordError);
+            });
+
+            // 3. Form Submission Handler
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const emailMsg = validateEmail(emailInput.value);
+                const passMsg = validatePassword(passwordInput.value);
+                let isFormValid = true;
+
+                if (emailMsg) { showError(emailError, emailMsg); isFormValid = false; } 
+                else { clearError(emailError); }
+
+                if (passMsg) { showError(passwordError, passMsg); isFormValid = false; } 
+                else { clearError(passwordError); }
+
+                if (!isFormValid) return;
+
+                // Lock & animate button
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+
+                // Simulasi memproses data login
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    successOverlay.classList.add('active');
+
+                    // CARA 2: Setelah animasi sukses, lempar halaman ke GitHub Web kamu
+                    setTimeout(() => {
+                        window.location.href = "GANTI_DENGAN_LINK_GITHUB_KAMU";
+                    }, 1500);
+
+                }, 2000);
+            });
+        });
+    </script>
 </body>
 </html>
