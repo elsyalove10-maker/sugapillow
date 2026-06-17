@@ -1,6 +1,4 @@
 /* ===== LOGIN.JS ===== */
-/* Menggunakan REST API: https://herisusanta.my.id/javalogin/api/ */
-
 const API_BASE = 'https://herisusanta.my.id/javalogin/api/';
 
 /* ===== CEK SUDAH LOGIN ===== */
@@ -24,7 +22,6 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   tampilAlert('info', '🔄 Sedang memproses login...');
 
   try {
-    // Kirim ke REST API
     const response = await fetch(API_BASE + 'login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,50 +31,44 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const data = await response.json();
 
     if (data.status === 'success' || data.token || data.message === 'Login berhasil') {
-      // Simpan data user ke sessionStorage
       const userLogin = {
         username: data.username || username,
-        token: data.token || '',
+        token: data.token || 'api_token_' + Date.now(),
         role: data.role || 'user',
         loginAt: new Date().toISOString()
       };
+      
       localStorage.setItem('userLogin', JSON.stringify(userLogin));
-      localStorage.setItem('baruLogin', '1'); // flag: tampilkan sambutan di index.html
+      localStorage.setItem('baruLogin', '1'); // Flag sapaan di index.html
 
       tampilAlert('success', `✅ Login berhasil! Selamat datang, <strong>${userLogin.username}</strong>! Mengalihkan...`);
       alert(`✅ Login berhasil!\n\nSelamat datang, ${userLogin.username}! 📚\nKamu akan diarahkan ke beranda.`);
 
-      setTimeout(() => {
-        window.location.href = '../index.html';
-      }, 500);
-
+      setTimeout(() => { window.location.href = '../index.html'; }, 500);
     } else {
       const pesan = data.message || 'Username atau password salah!';
       tampilAlert('error', `❌ ${pesan}`);
-      alert(`❌ Login Gagal!\n\n${pesan}\n\nPastikan username dan password benar.`);
+      alert(`❌ Login Gagal!\n\n${pesan}`);
       setBtnLoading(false);
     }
-
   } catch (error) {
-    console.error('API Error:', error);
-    // Fallback: cek akun demo lokal jika API tidak tersedia
+    console.warn('API Error, mencoba login via data lokal...');
     loginLokal(username, password);
   }
 });
 
 /* ===== FALLBACK LOGIN LOKAL ===== */
 function loginLokal(username, password) {
-  // Akun default dari LKPD
   const akunResmi = [
     { username: 'heri', password: '123', role: 'user' },
     { username: 'admin', password: '123', role: 'admin' }
   ];
 
-  // Akun yang sudah didaftarkan via register
   const akunTerdaftar = JSON.parse(localStorage.getItem('akunTerdaftar') || '[]');
   const semuaAkun = [...akunResmi, ...akunTerdaftar];
 
-  const cocok = semuaAkun.find(a => a.username === username && a.password === password);
+  // Pencarian case-insensitive agar lebih fleksibel
+  const cocok = semuaAkun.find(a => a.username.toLowerCase() === username.toLowerCase() && a.password === password);
 
   if (cocok) {
     const userLogin = {
@@ -86,17 +77,17 @@ function loginLokal(username, password) {
       role: cocok.role || 'user',
       loginAt: new Date().toISOString()
     };
+    
     localStorage.setItem('userLogin', JSON.stringify(userLogin));
+    localStorage.setItem('baruLogin', '1');
 
     tampilAlert('success', `✅ Login berhasil! Selamat datang, <strong>${cocok.username}</strong>!`);
     alert(`✅ Login berhasil!\n\nSelamat datang, ${cocok.username}! 📚\nKamu akan diarahkan ke beranda.`);
 
-    setTimeout(() => {
-      window.location.href = '../index.html';
-    }, 1000);
+    setTimeout(() => { window.location.href = '../index.html'; }, 1000);
   } else {
-    tampilAlert('error', '❌ Username atau password salah. Periksa kembali data login-mu.');
-    alert('❌ Login Gagal!\n\nUsername atau password yang kamu masukkan salah.\n\nCoba akun demo:\n• username: heri | password: 123\n• username: admin | password: 123');
+    tampilAlert('error', '❌ Username atau password salah.');
+    alert('❌ Login Gagal!\n\nUsername atau password salah.\n\nCoba akun demo:\n• heri | 123\n• admin | 123');
     setBtnLoading(false);
   }
 }
@@ -104,21 +95,13 @@ function loginLokal(username, password) {
 /* ===== VALIDASI FORM ===== */
 function validasiLogin() {
   let valid = true;
-
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
 
-  // Reset error
   setError('errUsername', '');
   setError('errPassword', '');
-  document.getElementById('username').className = '';
-  document.getElementById('password').className = '';
 
-  if (!username) {
-    setError('errUsername', '⚠️ Username wajib diisi');
-    document.getElementById('username').className = 'invalid';
-    valid = false;
-  } else if (username.length < 3) {
+  if (!username || username.length < 3) {
     setError('errUsername', '⚠️ Username minimal 3 karakter');
     document.getElementById('username').className = 'invalid';
     valid = false;
@@ -126,11 +109,7 @@ function validasiLogin() {
     document.getElementById('username').className = 'valid';
   }
 
-  if (!password) {
-    setError('errPassword', '⚠️ Password wajib diisi');
-    document.getElementById('password').className = 'invalid';
-    valid = false;
-  } else if (password.length < 3) {
+  if (!password || password.length < 3) {
     setError('errPassword', '⚠️ Password minimal 3 karakter');
     document.getElementById('password').className = 'invalid';
     valid = false;
@@ -145,6 +124,7 @@ function validasiLogin() {
 function togglePassword() {
   const input = document.getElementById('password');
   const btn = document.getElementById('togglePw');
+  if (!input || !btn) return;
   if (input.type === 'password') {
     input.type = 'text';
     btn.textContent = '🙈';
@@ -154,7 +134,7 @@ function togglePassword() {
   }
 }
 
-/* ===== ISI DEMO ===== */
+/* ===== ISI DATA DEMO ===== */
 function isiDemo(user, pass) {
   document.getElementById('username').value = user;
   document.getElementById('password').value = pass;
@@ -164,6 +144,7 @@ function isiDemo(user, pass) {
 /* ===== HELPER ===== */
 function tampilAlert(tipe, pesan) {
   const box = document.getElementById('alertBox');
+  if (!box) return;
   box.className = 'alert-box ' + tipe;
   box.innerHTML = pesan;
   box.style.display = 'block';
@@ -179,7 +160,8 @@ function setBtnLoading(loading) {
   const btn = document.getElementById('btnSubmit');
   const txt = document.getElementById('btnText');
   const loader = document.getElementById('btnLoader');
+  if (!btn) return;
   btn.disabled = loading;
-  txt.style.display = loading ? 'none' : 'inline';
-  loader.style.display = loading ? 'inline' : 'none';
+  if (txt) txt.style.display = loading ? 'none' : 'inline';
+  if (loader) loader.style.display = loading ? 'inline' : 'none';
 }
