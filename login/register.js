@@ -1,28 +1,26 @@
-/* ===== REGISTER.JS (FIXED) ===== */
+/* ===== REGISTER.JS (FIXED TOTAL & INSTAN) ===== */
 document.addEventListener('DOMContentLoaded', () => {
   const registerForm = document.querySelector('form') || document.getElementById('registerForm');
   const usernameInput = document.querySelector('input[type="text"]');
-  // Ambil semua input password di halaman register
   const passwordInputs = document.querySelectorAll('input[type="password"]');
   const togglePwBtn = document.getElementById('togglePw') || document.querySelector('.toggle-pw');
 
-  // 1. Logika Mata Register (Mengubah semua field password sekaligus)
+  // 1. Logika Mata Register
   if (togglePwBtn && passwordInputs.length > 0) {
     togglePwBtn.addEventListener('click', () => {
-      // Cek input pertama sebagai acuan
       const tipeBaru = passwordInputs[0].type === 'password' ? 'text' : 'password';
-      
       passwordInputs.forEach(input => {
         input.type = tipeBaru;
       });
-
       togglePwBtn.textContent = tipeBaru === 'password' ? '👁️' : '🙈';
     });
   }
 
-  // 2. Logika Submit Register
+  // 2. Logika Submit Register (Dibuat Instan)
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
+      // STOP animasi loader bawaan template agar tidak ada delay
+      e.stopPropagation(); 
       e.preventDefault();
 
       const usernameVal = usernameInput ? usernameInput.value.trim() : '';
@@ -47,12 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // SIMPAN DATA KE REGISTER
+      // Simpan data detik itu juga
       daftarUser.push({ username: usernameVal, password: passwordVal });
       localStorage.setItem('daftarUserAll', JSON.stringify(daftarUser));
 
+      // Langsung pop-up dan pindah halaman tanpa nunggu animasi selesai
       alert('🎉 Registrasi Berhasil! Silakan masuk dengan akun baru Anda.');
-      window.location.href = 'index.html'; // Pindah ke halaman login
+      window.location.href = 'index.html'; 
     });
   }
 });
