@@ -1,50 +1,63 @@
 /* ===== LOGIN.JS ===== */
 document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('loginForm'); // Ganti sesuai ID form login-mu
+  const loginForm = document.getElementById('loginForm');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const togglePwBtn = document.getElementById('togglePw');
 
+  // 1. FUNGSI UNTUK PROSES SUBMIT LOGIN
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const usernameInput = document.getElementById('loginUsername').value.trim();
-      const passwordInput = document.getElementById('loginPassword').value;
+      const usernameVal = usernameInput.value.trim();
+      const passwordVal = passwordInput.value;
 
-      // 1. Ambil database user dari localStorage yang dibuat saat register
-      const databaseUser = JSON.parse(localStorage.getItem('daftarUserAll')) || [];
-
-      // Akun tiruan bawaan (opsional, jika ingin tetap ada akun default admin)
-      if (usernameInput === 'admin' && passwordInput === 'admin123') {
-        localStorage.setItem('userLogin', JSON.stringify({ username: 'Admin' }));
-        localStorage.setItem('baruLogin', '1');
-        window.location.href = '../index.html';
+      if (usernameVal === '' || passwordVal === '') {
+        alert('Username dan password tidak boleh kosong!');
         return;
       }
 
-      // 2. Cocokkan input dengan data hasil register
-      const userDitemukan = databaseUser.find(u => u.username === usernameInput && u.password === passwordInput);
+      // Ambil database user dari localStorage (hasil register)
+      const databaseUser = JSON.parse(localStorage.getItem('daftarUserAll')) || [];
 
-      if (userDitemukan) {
-        // Jika cocok, simpan sesi login dan lempar ke halaman utama
+      // Cek apakah data cocok dengan akun bawaan (Demo) atau hasil register
+      const userDitemukan = databaseUser.find(u => u.username === usernameVal && u.password === passwordVal);
+
+      if ((usernameVal === 'heri' && passwordVal === '123') || (usernameVal === 'admin' && passwordVal === '123')) {
+        // Jika pakai akun demo bawaan HTML kamu
+        localStorage.setItem('userLogin', JSON.stringify({ username: usernameVal }));
+        localStorage.setItem('baruLogin', '1');
+        alert('🔑 Login Berhasil! (Akun Demo)');
+        window.location.href = '../index.html';
+      } else if (userDitemukan) {
+        // Jika pakai akun hasil register baru
         localStorage.setItem('userLogin', JSON.stringify({ username: userDitemukan.username }));
-        localStorage.setItem('baruLogin', '1'); // Flag untuk memicu sapaan di welcome.js
-        
+        localStorage.setItem('baruLogin', '1');
         alert('🔑 Login Berhasil!');
-        window.location.href = '../index.html'; // Kembali ke halaman utama di luar folder login
+        window.location.href = '../index.html';
       } else {
-        alert('❌ Username atau Password salah! Periksa kembali atau silakan Register terlebih dahulu.');
+        alert('❌ Username atau password salah! Periksa kembali atau silakan daftar akun baru.');
       }
     });
   }
 
-  // --- LOGIKA TOMBOL MATA DI LOGIN (Pastikan ini juga ada) ---
-  const togglePasswordLogin = document.getElementById('togglePasswordLogin');
-  const loginPassword = document.getElementById('loginPassword');
-
-  if (togglePasswordLogin && loginPassword) {
-    togglePasswordLogin.addEventListener('click', function () {
-      const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-      loginPassword.setAttribute('type', type);
-      this.textContent = type === 'password' ? '👁️' : '🙈';
+  // 2. FUNGSI TOMBOL MATA (LIHAT PASSWORD)
+  if (togglePwBtn && passwordInput) {
+    togglePwBtn.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePwBtn.textContent = type === 'password' ? '👁️' : '🙈';
     });
   }
 });
+
+// 3. FUNGSI UNTUK FITUR DIKLIK LANGSUNG ISI DATA (DEMO HINT)
+function isiDemo(username, password) {
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  if (usernameInput && passwordInput) {
+    usernameInput.value = username;
+    passwordInput.value = password;
+  }
+}
