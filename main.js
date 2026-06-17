@@ -136,3 +136,34 @@ function checkout() {
   updateTampilanKeranjang();
   toggleCart();
 }
+/* ===== TAMBAHKAN INI DI FILE JS HALAMAN UTAMA (script.js / main.js) ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Ambil semua tombol beli yang ada di halaman utama
+  // Sesuaikan '.btn-beli' atau '.buy-btn' dengan nama class tombol beli di HTML-mu
+  const tombolBeliAll = document.querySelectorAll('.btn-beli, .buy-btn, [id^="btnBeli"]');
+
+  tombolBeliAll.forEach(tombol => {
+    tombol.addEventListener('click', (e) => {
+      // Ambil data login dari localStorage
+      const userLogin = localStorage.getItem('userLogin');
+
+      // 2. JIKA BELUM LOGIN
+      if (!userLogin) {
+        // Tahan proses pembelian / masuk keranjang
+        e.preventDefault(); 
+        
+        alert('⚠️ Anda harus login terlebih dahulu untuk membeli buku!');
+        
+        // Alihkan paksa ke halaman login (sesuaikan jalurnya dengan struktur foldermu)
+        window.location.href = 'login/index.html'; 
+        return;
+      }
+
+      // 3. JIKA SUDAH LOGIN
+      // Tuliskan logika pembelianmu di bawah ini (misal: masuk keranjang atau checkout)
+      console.log('User sudah login, proses pembelian dilanjutkan...');
+      // alert('Buku berhasil ditambahkan ke keranjang!'); // contoh penanda
+    });
+  });
+});
