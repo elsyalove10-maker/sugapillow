@@ -10,7 +10,6 @@
 <body>
 
   <div class="auth-page">
-    <!-- PANEL KIRI -->
     <div class="auth-left">
       <a href="../index.html" class="back-btn">← Kembali ke Beranda</a>
       <div class="auth-brand">
@@ -30,7 +29,6 @@
       </div>
     </div>
 
-    <!-- PANEL KANAN -->
     <div class="auth-right">
       <div class="auth-card">
         <div class="auth-card-header">
@@ -38,10 +36,8 @@
           <p>Masuk ke akun Dunia Tere Liye-mu</p>
         </div>
 
-        <!-- ALERT BOX -->
         <div class="alert-box" id="alertBox" style="display:none"></div>
 
-        <!-- FORM LOGIN -->
         <form id="loginForm" novalidate>
           <div class="form-group">
             <label for="username">Username</label>
@@ -71,7 +67,7 @@
                 autocomplete="current-password"
                 required
               />
-              <button type="button" class="toggle-pw" id="togglePw" onclick="togglePassword()">👁️</button>
+              <button type="button" class="toggle-pw" id="togglePw" onclick="togglePasswordLogin()">👁️</button>
             </div>
             <span class="field-error" id="errPassword"></span>
           </div>
@@ -82,9 +78,8 @@
             </label>
           </div>
 
-          <button type="submit" class="btn-submit" id="btnSubmit">
-            <span id="btnText">Masuk</span>
-            <span id="btnLoader" style="display:none">⏳ Memproses...</span>
+          <button type="submit" class="btn-submit">
+            <span>Masuk</span>
           </button>
         </form>
 
@@ -105,6 +100,5 @@
   </div>
 
   <script src="login.js"></script>
-<script src="register.js"></script>
 </body>
 </html>
