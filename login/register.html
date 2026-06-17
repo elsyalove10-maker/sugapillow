@@ -10,27 +10,15 @@
 <body>
 
   <div class="auth-page">
-    <!-- PANEL KIRI -->
     <div class="auth-left">
       <a href="../index.html" class="back-btn">← Kembali ke Beranda</a>
       <div class="auth-brand">
         <span class="brand-icon">📚</span>
         <h1>Dunia <em>Tere Liye</em></h1>
-        <p>Buat akun baru dan mulai perjalanan membacamu</p>
-      </div>
-      <div class="auth-books">
-        <div class="auth-book" style="background:#0f3460">Tentang Kamu</div>
-        <div class="auth-book" style="background:#b5451b">Ayahku</div>
-        <div class="auth-book" style="background:#2d6a4f">Bulan</div>
-        <div class="auth-book" style="background:#c77dff;color:#1a1206">Moga Bunda</div>
-      </div>
-      <div class="auth-quote">
-        <p>"Membaca buku adalah perjalanan tanpa batas waktu dan ruang."</p>
-        <span>— Tere Liye</span>
+        <p>Daftar gratis dan nikmati koleksi buku Tere Liye</p>
       </div>
     </div>
 
-    <!-- PANEL KANAN -->
     <div class="auth-right">
       <div class="auth-card">
         <div class="auth-card-header">
@@ -38,92 +26,42 @@
           <p>Daftar gratis dan nikmati koleksi buku Tere Liye</p>
         </div>
 
-        <!-- ALERT BOX -->
-        <div class="alert-box" id="alertBox" style="display:none"></div>
-
-        <!-- FORM REGISTER -->
         <form id="registerForm" novalidate>
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="regUsername">Username</label>
             <div class="input-wrapper">
               <span class="input-icon">👤</span>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Pilih username unikmu"
-                autocomplete="username"
-                required
-              />
+              <input type="text" id="regUsername" placeholder="Pilih username unikmu" required />
             </div>
-            <span class="field-error" id="errUsername"></span>
           </div>
 
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="regEmail">Email</label>
             <div class="input-wrapper">
               <span class="input-icon">📧</span>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="email@kamu.com"
-                autocomplete="email"
-                required
-              />
+              <input type="email" id="regEmail" placeholder="email@kamu.com" required />
             </div>
-            <span class="field-error" id="errEmail"></span>
           </div>
 
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="regPassword">Password</label>
             <div class="input-wrapper">
               <span class="input-icon">🔒</span>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Minimal 6 karakter"
-                autocomplete="new-password"
-                required
-              />
-              <button type="button" class="toggle-pw" onclick="togglePassword('password')">👁️</button>
+              <input type="password" id="regPassword" placeholder="Minimal 6 karakter" required />
+              <button type="button" class="toggle-pw" id="regTogglePw" onclick="togglePasswordRegister()">👁️</button>
             </div>
-            <span class="field-error" id="errPassword"></span>
-            <div class="password-strength" id="strengthBar">
-              <div class="strength-fill" id="strengthFill"></div>
-            </div>
-            <span class="strength-label" id="strengthLabel"></span>
           </div>
 
           <div class="form-group">
-            <label for="konfirmPassword">Konfirmasi Password</label>
+            <label for="regConfirmPassword">Konfirmasi Password</label>
             <div class="input-wrapper">
-              <span class="input-icon">🔑</span>
-              <input
-                type="password"
-                id="konfirmPassword"
-                name="konfirmPassword"
-                placeholder="Ulangi password"
-                autocomplete="new-password"
-                required
-              />
-              <button type="button" class="toggle-pw" onclick="togglePassword('konfirmPassword')">👁️</button>
+              <span class="input-icon">🔒</span>
+              <input type="password" id="regConfirmPassword" placeholder="Konfirmasi Password" required />
             </div>
-            <span class="field-error" id="errKonfirm"></span>
           </div>
 
-          <div class="form-check">
-            <label>
-              <input type="checkbox" id="setuju" required/>
-              Saya setuju dengan <a href="#" onclick="alert('Syarat & Ketentuan Dunia Tere Liye')">Syarat & Ketentuan</a>
-            </label>
-            <span class="field-error" id="errSetuju"></span>
-          </div>
-
-          <button type="submit" class="btn-submit" id="btnSubmit">
-            <span id="btnText">Daftar Sekarang</span>
-            <span id="btnLoader" style="display:none">⏳ Mendaftarkan...</span>
+          <button type="submit" class="btn-submit">
+            <span>Daftar Sekarang</span>
           </button>
         </form>
 
@@ -135,6 +73,6 @@
     </div>
   </div>
 
-  <script src="js/register.js"></script>
+  <script src="register.js"></script>
 </body>
 </html>
