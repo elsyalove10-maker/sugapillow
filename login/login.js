@@ -1,46 +1,32 @@
-/* ===== LOGIN.JS (FIXED) ===== */
+/* ===== LOGIN.JS (UTUH & AMAN) ===== */
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
   const usernameInput = document.getElementById('username');
   const passwordInput = document.getElementById('password');
-  const togglePwBtn = document.getElementById('togglePw');
 
-  // 1. Logika Mata (Langsung di dalam, gak pakai onclick HTML)
-  if (togglePwBtn && passwordInput) {
-    togglePwBtn.addEventListener('click', () => {
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        togglePwBtn.textContent = '🙈';
-      } else {
-        passwordInput.type = 'password';
-        togglePwBtn.textContent = '👁️';
-      }
-    });
-  }
-
-  // 2. Logika Submit Login
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      e.stopPropagation();
 
       const usernameVal = usernameInput.value.trim();
       const passwordVal = passwordInput.value;
 
-      if (!usernameVal || !passwordVal) {
+      if (usernameVal === '' || passwordVal === '') {
         alert('Username dan password tidak boleh kosong!');
         return;
       }
 
-      // Cek Akun Demo Bawaan Terlebih Dahulu
+      // Deteksi Akun Demo
       if ((usernameVal === 'heri' && passwordVal === '123') || (usernameVal === 'admin' && passwordVal === '123')) {
         localStorage.setItem('userLogin', JSON.stringify({ username: usernameVal }));
         localStorage.setItem('baruLogin', '1');
         alert('🔑 Login Berhasil! (Akun Demo)');
         window.location.href = '../index.html';
-        return; // Setop di sini kalau akun demo
+        return;
       }
 
-      // Jika bukan akun demo, cek database hasil register
+      // Deteksi Database Akun Register
       const databaseUser = JSON.parse(localStorage.getItem('daftarUserAll')) || [];
       const userDitemukan = databaseUser.find(u => u.username === usernameVal && u.password === passwordVal);
 
@@ -55,3 +41,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Fungsi Tombol Mata Login
+function togglePasswordLogin() {
+  const passwordInput = document.getElementById('password');
+  const togglePwBtn = document.getElementById('togglePw');
+  
+  if (passwordInput && togglePwBtn) {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    togglePwBtn.textContent = type === 'password' ? '👁️' : '🙈';
+  }
+}
+
+// Fungsi Otomatis Isi Kolom dari Klik Demo Hint
+function isiDemo(username, password) {
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  if (usernameInput && passwordInput) {
+    usernameInput.value = username;
+    passwordInput.value = password;
+  }
+}
