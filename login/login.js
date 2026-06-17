@@ -5,7 +5,7 @@ const API_BASE = 'https://herisusanta.my.id/javalogin/api/';
 
 /* ===== CEK SUDAH LOGIN ===== */
 window.addEventListener('DOMContentLoaded', () => {
-  const userData = sessionStorage.getItem('userLogin');
+  const userData = localStorage.getItem('userLogin');
   if (userData) {
     const user = JSON.parse(userData);
     tampilAlert('info', `⚠️ Kamu sudah login sebagai <strong>${user.username}</strong>. <a href="../index.html">Kembali ke beranda</a>`);
@@ -41,14 +41,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         role: data.role || 'user',
         loginAt: new Date().toISOString()
       };
-      sessionStorage.setItem('userLogin', JSON.stringify(userLogin));
+      localStorage.setItem('userLogin', JSON.stringify(userLogin));
+      localStorage.setItem('baruLogin', '1'); // flag: tampilkan sambutan di index.html
 
       tampilAlert('success', `✅ Login berhasil! Selamat datang, <strong>${userLogin.username}</strong>! Mengalihkan...`);
       alert(`✅ Login berhasil!\n\nSelamat datang, ${userLogin.username}! 📚\nKamu akan diarahkan ke beranda.`);
 
       setTimeout(() => {
         window.location.href = '../index.html';
-      }, 1000);
+      }, 500);
 
     } else {
       const pesan = data.message || 'Username atau password salah!';
@@ -85,7 +86,7 @@ function loginLokal(username, password) {
       role: cocok.role || 'user',
       loginAt: new Date().toISOString()
     };
-    sessionStorage.setItem('userLogin', JSON.stringify(userLogin));
+    localStorage.setItem('userLogin', JSON.stringify(userLogin));
 
     tampilAlert('success', `✅ Login berhasil! Selamat datang, <strong>${cocok.username}</strong>!`);
     alert(`✅ Login berhasil!\n\nSelamat datang, ${cocok.username}! 📚\nKamu akan diarahkan ke beranda.`);
