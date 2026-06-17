@@ -1,45 +1,37 @@
-/* ===== REGISTER.JS (FIXED TOTAL & INSTAN) ===== */
-document.addEventListener('DOMContentLoaded', () => {
-  const /* ===== REGISTER.JS (SOLUSI TOTAL) ===== */
+/* ===== REGISTER.JS (SOLUSI FIX 100%) ===== */
 
-// 1. FUNGSI MATA (Langsung nembak ID secara paksa saat diklik)
-function mataRegister() {
-  const pass1 = document.getElementById('regPassword');
-  const pass2 = document.getElementById('regConfirmPassword');
-  const tombolMata = document.querySelector('.toggle-pw');
+// 1. Fungsi Tombol Mata Register
+function togglePasswordRegister() {
+  const passField = document.getElementById('regPassword');
+  const confirmField = document.getElementById('regConfirmPassword');
+  const tombolMata = document.getElementById('regTogglePw');
 
-  if (pass1) {
-    if (pass1.type === 'password') {
-      pass1.type = 'text';
-      if (pass2) pass2.type = 'text';
-      if (tombolMata) tombolMata.textContent = '🙈';
-    } else {
-      pass1.type = 'password';
-      if (pass2) pass2.type = 'password';
-      if (tombolMata) tombolMata.textContent = '👁️';
-    }
+  if (passField) {
+    const tipeBaru = passField.type === 'password' ? 'text' : 'password';
+    passField.type = tipeBaru;
+    if (confirmField) confirmField.type = tipeBaru;
+    if (tombolMata) tombolMata.textContent = tipeBaru === 'password' ? '👁️' : '🙈';
   }
 }
 
-// 2. FUNGSI SUBMIT REGISTER INSTAN
+// 2. Fungsi Submit Simpan Data (Instan Tanpa Delay)
 document.addEventListener('DOMContentLoaded', () => {
-  const registerForm = document.querySelector('form') || document.getElementById('registerForm');
-  const usernameInput = document.querySelector('input[type="text"]');
+  const registerForm = document.getElementById('registerForm');
 
   if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
-      // Potong semua script bawaan template secara paksa
       e.preventDefault();
       e.stopPropagation();
 
-      const pass1 = document.getElementById('regPassword');
-      const pass2 = document.getElementById('regConfirmPassword');
+      const usernameInput = document.getElementById('regUsername');
+      const passField = document.getElementById('regPassword');
+      const confirmField = document.getElementById('regConfirmPassword');
 
       const usernameVal = usernameInput ? usernameInput.value.trim() : '';
-      const passwordVal = pass1 ? pass1.value : '';
-      const confirmPasswordVal = pass2 ? pass2.value : '';
+      const passwordVal = passField ? passField.value : '';
+      const confirmPasswordVal = confirmField ? confirmField.value : '';
 
-      if (!usernameVal || !passwordVal) {
+      if (usernameVal === '' || passwordVal === '') {
         alert('Username dan Password tidak boleh kosong!');
         return;
       }
@@ -49,75 +41,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Ambil data lama dari localStorage
       const daftarUser = JSON.parse(localStorage.getItem('daftarUserAll')) || [];
-      const userSudahAda = daftarUser.find(u => u.username === usernameVal);
       
+      // Cek apakah username sudah terdaftar
+      const userSudahAda = daftarUser.find(u => u.username === usernameVal);
       if (userSudahAda) {
-        alert('❌ Username sudah digunakan!');
+        alert('❌ Username sudah digunakan! Coba nama lain.');
         return;
       }
 
-      // Simpan data detik itu juga ke localStorage
+      // Proses simpan data ke localStorage detik itu juga
       daftarUser.push({ username: usernameVal, password: passwordVal });
       localStorage.setItem('daftarUserAll', JSON.stringify(daftarUser));
 
-      // Pop-up keluar dan langsung pindahkan halaman secara paksa
       alert('🎉 Registrasi Berhasil! Silakan masuk dengan akun baru Anda.');
-      window.location.replace('index.html'); 
-    });
-  }
-});registerForm = document.querySelector('form') || document.getElementById('registerForm');
-  const usernameInput = document.querySelector('input[type="text"]');
-  const passwordInputs = document.querySelectorAll('input[type="password"]');
-  const togglePwBtn = document.getElementById('togglePw') || document.querySelector('.toggle-pw');
-
-  // 1. Logika Mata Register
-  if (togglePwBtn && passwordInputs.length > 0) {
-    togglePwBtn.addEventListener('click', () => {
-      const tipeBaru = passwordInputs[0].type === 'password' ? 'text' : 'password';
-      passwordInputs.forEach(input => {
-        input.type = tipeBaru;
-      });
-      togglePwBtn.textContent = tipeBaru === 'password' ? '👁️' : '🙈';
-    });
-  }
-
-  // 2. Logika Submit Register (Dibuat Instan)
-  if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
-      // STOP animasi loader bawaan template agar tidak ada delay
-      e.stopPropagation(); 
-      e.preventDefault();
-
-      const usernameVal = usernameInput ? usernameInput.value.trim() : '';
-      const passwordVal = passwordInputs[0] ? passwordInputs[0].value : '';
-      const confirmPasswordVal = passwordInputs[1] ? passwordInputs[1].value : '';
-
-      if (!usernameVal || !passwordVal) {
-        alert('Username dan Password tidak boleh kosong!');
-        return;
-      }
-
-      if (passwordInputs[1] && passwordVal !== confirmPasswordVal) {
-        alert('❌ Password dan Konfirmasi Password tidak cocok!');
-        return;
-      }
-
-      const daftarUser = JSON.parse(localStorage.getItem('daftarUserAll')) || [];
-      const userSudahAda = daftarUser.find(u => u.username === usernameVal);
-      
-      if (userSudahAda) {
-        alert('❌ Username sudah digunakan!');
-        return;
-      }
-
-      // Simpan data detik itu juga
-      daftarUser.push({ username: usernameVal, password: passwordVal });
-      localStorage.setItem('daftarUserAll', JSON.stringify(daftarUser));
-
-      // Langsung pop-up dan pindah halaman tanpa nunggu animasi selesai
-      alert('🎉 Registrasi Berhasil! Silakan masuk dengan akun baru Anda.');
-      window.location.href = 'index.html'; 
+      window.location.href = 'index.html'; // Langsung pindah ke halaman login
     });
   }
 });
