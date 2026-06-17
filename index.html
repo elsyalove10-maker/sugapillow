@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dunia Tere Liye – Koleksi Buku Terbaik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="brand-icon">📚</span>
+        <span class="brand-text">Dunia <strong>Tere Liye</strong></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#koleksi">Koleksi</a></li>
+        <li><a href="#promo">Promo</a></li>
+        <li><a href="#lokasi">Lokasi</a></li>
+        <li><a href="#video">Video</a></li>
+        <li id="nav-auth">
+          <a href="login/index.html" class="btn-login" id="btnLoginNav">Masuk</a>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger">&#9776;</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="beranda">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">✦ Koleksi Karya Terbaik</p>
+      <h1 class="hero-title">Dunia<br/><em>Tere Liye</em></h1>
+      <p class="hero-subtitle">Temukan ratusan judul buku karya Tere Liye — penulis terlaris Indonesia. Dari roman, petualangan, hingga filsafat kehidupan.</p>
+      <div class="hero-btns">
+        <a href="#koleksi" class="btn-primary">Lihat Koleksi</a>
+        <a href="#promo" class="btn-secondary">Promo Hari Ini</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">180+</span><span class="stat-label">Judul Buku</span></div>
+        <div class="stat"><span class="stat-num">12 Jt+</span><span class="stat-label">Eksemplar Terjual</span></div>
+        <div class="stat"><span class="stat-num">25+</span><span class="stat-label">Tahun Berkarya</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="book-stack">
+        <div class="book b1">Bumi</div>
+        <div class="book b2">Hujan</div>
+        <div class="book b3">Rindu</div>
+        <div class="book b4">Pulang</div>
+        <div class="book b5">Tentang Kamu</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TENTANG -->
+  <section class="tentang" id="tentang">
+    <div class="container">
+      <div class="tentang-grid">
+        <div class="tentang-text">
+          <p class="section-label">Tentang Penulis</p>
+          <h2 class="section-title">Siapa Tere Liye?</h2>
+          <p>Tere Liye adalah nama pena dari <strong>Darwis</strong>, penulis bestseller Indonesia yang lahir pada 21 Mei 1979 di Lahat, Sumatera Selatan. Ia dikenal sebagai salah satu penulis paling produktif dan berpengaruh di Indonesia.</p>
+          <p>Karya-karyanya mencakup berbagai genre: roman percintaan, petualangan fantasi, hingga renungan kehidupan. Setiap buku selalu menjadi bestseller dan dicetak ulang berkali-kali.</p>
+          <div class="fact-pills">
+            <span class="pill">🏆 Bestseller Gramedia</span>
+            <span class="pill">📖 180+ Karya</span>
+            <span class="pill">🌍 Diterjemahkan ke 5 Bahasa</span>
+          </div>
+        </div>
+        <div class="tentang-card">
+          <div class="author-card">
+            <div class="author-avatar">T</div>
+            <h3>Tere Liye</h3>
+            <p>Darwis • Lahir 21 Mei 1979</p>
+            <hr/>
+            <ul>
+              <li>🎓 Lulusan FE Universitas Indonesia</li>
+              <li>✍️ Mulai menulis sejak 2005</li>
+              <li>📚 Penulis terlaris di Indonesia</li>
+              <li>🏠 Tinggal di Jakarta</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOLEKSI BUKU -->
+  <section class="koleksi" id="koleksi">
+    <div class="container">
+      <p class="section-label center">Koleksi Unggulan</p>
+      <h2 class="section-title center">Buku Pilihan Tere Liye</h2>
+      <p class="section-sub center">Setiap buku adalah perjalanan batin yang tak terlupakan</p>
+
+      <div class="filter-tabs">
+        <button class="tab active" onclick="filterBuku('semua')">Semua</button>
+        <button class="tab" onclick="filterBuku('roman')">Roman</button>
+        <button class="tab" onclick="filterBuku('petualangan')">Petualangan</button>
+        <button class="tab" onclick="filterBuku('keluarga')">Keluarga</button>
+      </div>
+
+      <div class="buku-grid" id="bukuGrid">
+
+        <div class="buku-card" data-kategori="roman">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+            <span class="buku-emoji">🌧️</span>
+            <div class="buku-badge">Bestseller</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Roman</span>
+            <h3>Hujan</h3>
+            <p>Kisah cinta dua manusia di tengah bencana dan kehilangan yang memilu hati.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 89.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Hujan', 89000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="petualangan">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#0f3460,#533483)">
+            <span class="buku-emoji">🌍</span>
+            <div class="buku-badge">Seri Populer</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Petualangan</span>
+            <h3>Bumi</h3>
+            <p>Petualangan Raib, Ali, dan Seli menguak misteri dunia paralel yang menakjubkan.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 95.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Bumi', 95000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="keluarga">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#b5451b,#e07b39)">
+            <span class="buku-emoji">🏠</span>
+            <div class="buku-badge">Terlaris</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Keluarga</span>
+            <h3>Ayahku (Bukan) Pembohong</h3>
+            <p>Kisah tentang kenangan indah seorang ayah dan cinta tak bersyarat kepada anak.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 79.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Ayahku (Bukan) Pembohong', 79000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="roman">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#2d6a4f,#40916c)">
+            <span class="buku-emoji">💚</span>
+            <div class="buku-badge">Top Pick</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Roman</span>
+            <h3>Tentang Kamu</h3>
+            <p>Perjalanan seorang pengacara muda mengungkap kisah hidup seorang nenek yang luar biasa.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 92.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Tentang Kamu', 92000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="keluarga">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#6a0572,#ab83a1)">
+            <span class="buku-emoji">🚂</span>
+            <div class="buku-badge">Iconic</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Keluarga</span>
+            <h3>Rindu</h3>
+            <p>Di atas kapal haji, lima kisah manusia dengan beban rindu masing-masing bertemu.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 85.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Rindu', 85000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="petualangan">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#1b4332,#52b788)">
+            <span class="buku-emoji">🌙</span>
+            <div class="buku-badge">New</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Petualangan</span>
+            <h3>Bulan</h3>
+            <p>Lanjutan seri Bumi — Raib dan kawan-kawan menghadapi ancaman dari dunia lain.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 88.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Bulan', 88000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="roman">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#7b2d8b,#e040fb)">
+            <span class="buku-emoji">🛤️</span>
+            <div class="buku-badge">Populer</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Roman</span>
+            <h3>Pulang</h3>
+            <p>Bujang, pemuda Sumatera yang terjebak dunia hitam, mencari jalan pulang ke fitrahnya.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 90.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Pulang', 90000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buku-card" data-kategori="keluarga">
+          <div class="buku-cover" style="background:linear-gradient(135deg,#c77dff,#7b2ff7)">
+            <span class="buku-emoji">👧</span>
+            <div class="buku-badge">Menyentuh</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Keluarga</span>
+            <h3>Moga Bunda Disayang Allah</h3>
+            <p>Kisah mengharukan seorang anak buta-tuli yang berjuang memahami dunia dengan cinta.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 72.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Moga Bunda Disayang Allah', 72000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="promo" id="promo">
+    <div class="container">
+      <p class="section-label center" style="color:#f4a261">Penawaran Spesial</p>
+      <h2 class="section-title center" style="color:#fff">Promo Bulan Ini</h2>
+      <div class="promo-grid">
+        <div class="promo-card gold">
+          <div class="promo-icon">🎁</div>
+          <h3>Paket Hemat Trio</h3>
+          <p>Bumi + Bulan + Matahari</p>
+          <div class="promo-harga">
+            <span class="harga-coret">Rp 279.000</span>
+            <span class="harga-promo">Rp 220.000</span>
+          </div>
+          <span class="diskon-badge">Hemat 21%</span>
+          <button class="btn-promo" onclick="beliPromo('Paket Trio Bumi-Bulan-Matahari', 220000)">Beli Sekarang</button>
+        </div>
+        <div class="promo-card dark">
+          <div class="promo-icon">📦</div>
+          <h3>Paket Roman Pilihan</h3>
+          <p>Hujan + Tentang Kamu + Pulang</p>
+          <div class="promo-harga">
+            <span class="harga-coret">Rp 271.000</span>
+            <span class="harga-promo">Rp 210.000</span>
+          </div>
+          <span class="diskon-badge">Hemat 22%</span>
+          <button class="btn-promo" onclick="beliPromo('Paket Roman Pilihan', 210000)">Beli Sekarang</button>
+        </div>
+        <div class="promo-card accent">
+          <div class="promo-icon">👨‍👩‍👧</div>
+          <h3>Paket Keluarga</h3>
+          <p>Rindu + Ayahku (Bukan) Pembohong + Moga Bunda</p>
+          <div class="promo-harga">
+            <span class="harga-coret">Rp 236.000</span>
+            <span class="harga-promo">Rp 185.000</span>
+          </div>
+          <span class="diskon-badge">Hemat 22%</span>
+          <button class="btn-promo" onclick="beliPromo('Paket Keluarga', 185000)">Beli Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO YOUTUBE -->
+  <section class="video-section" id="video">
+    <div class="container">
+      <p class="section-label center">Tonton Langsung</p>
+      <h2 class="section-title center">Rekomendasi Video Tere Liye</h2>
+      <p class="section-sub center">Simak ulasan, bedah buku, dan wawancara eksklusif bersama Tere Liye</p>
+      <div class="video-grid">
+        <div class="video-wrapper">
+          <h4>📽️ Bedah Buku "Hujan"</h4>
+          <iframe width="100%" height="280"
+            src="https://www.youtube.com/embed/WkEpw5r_SjQ"
+            title="Bedah Buku Hujan - Tere Liye"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper">
+          <h4>📽️ Wawancara Tere Liye</h4>
+          <iframe width="100%" height="280"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Wawancara Tere Liye"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOKASI / MAPS -->
+  <section class="lokasi-section" id="lokasi">
+    <div class="container">
+      <p class="section-label center">Temukan Kami</p>
+      <h2 class="section-title center">Toko Buku Rekanan</h2>
+      <p class="section-sub center">Kunjungi toko buku terdekat untuk mendapatkan koleksi Tere Liye secara langsung</p>
+      <div class="maps-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.899581696843!2d110.3928100740499!3d-7.800455306955081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57669d43fe55%3A0x75fae1bb400d4da5!2sSMA%20Negeri%208%20Yogyakarta!5e0!3m2!1sen!2sid!4v1778126595811!5m2!1sen!2sid"
+          width="100%" height="400"
+          style="border:0; border-radius:16px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- KERANJANG BELANJA -->
+  <div class="cart-fab" id="cartFab" onclick="toggleCart()">
+    🛒 <span class="cart-count" id="cartCount">0</span>
+  </div>
+
+  <div class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <h3>🛒 Keranjang Belanja</h3>
+      <button onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Keranjang masih kosong</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: <strong id="cartTotal">Rp 0</strong></div>
+      <button class="btn-checkout" onclick="checkout()">Checkout Sekarang</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>📚 Dunia Tere Liye</h4>
+          <p>Toko buku online khusus koleksi karya Tere Liye. Melayani pengiriman ke seluruh Indonesia.</p>
+        </div>
+        <div>
+          <h4>Menu Cepat</h4>
+          <ul>
+            <li><a href="#beranda">Beranda</a></li>
+            <li><a href="#koleksi">Koleksi Buku</a></li>
+            <li><a href="#promo">Promo</a></li>
+            <li><a href="#lokasi">Lokasi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kontak</h4>
+          <ul>
+            <li>📧 info@duniatereliiye.id</li>
+            <li>📱 0812-3456-7890</li>
+            <li>📍 Yogyakarta, Indonesia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Dunia Tere Liye. Dibuat dengan ❤️ untuk para pembaca setia.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
