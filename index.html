@@ -105,13 +105,16 @@
         <button class="tab" onclick="filterBuku('roman')">Roman</button>
         <button class="tab" onclick="filterBuku('petualangan')">Petualangan</button>
         <button class="tab" onclick="filterBuku('keluarga')">Keluarga</button>
+        <button class="tab" onclick="filterBuku('thriller')">Thriller</button>
+        <button class="tab" onclick="filterBuku('anak')">Anak</button>
       </div>
 
       <div class="buku-grid" id="bukuGrid">
 
+        <!-- HUJAN -->
         <div class="buku-card" data-kategori="roman">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
-            <span class="buku-emoji">🌧️</span>
+          <div class="buku-cover">
+            <img src="hujan.jpg" alt="Cover Hujan" />
             <div class="buku-badge">Bestseller</div>
           </div>
           <div class="buku-info">
@@ -125,9 +128,10 @@
           </div>
         </div>
 
+        <!-- BUMI -->
         <div class="buku-card" data-kategori="petualangan">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#0f3460,#533483)">
-            <span class="buku-emoji">🌍</span>
+          <div class="buku-cover">
+            <img src="bumi.jpg" alt="Cover Bumi" />
             <div class="buku-badge">Seri Populer</div>
           </div>
           <div class="buku-info">
@@ -141,9 +145,10 @@
           </div>
         </div>
 
+        <!-- AYAHKU BUKAN PEMBOHONG -->
         <div class="buku-card" data-kategori="keluarga">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#b5451b,#e07b39)">
-            <span class="buku-emoji">🏠</span>
+          <div class="buku-cover">
+            <img src="ayahku.jpg" alt="Cover Ayahku (Bukan) Pembohong" />
             <div class="buku-badge">Terlaris</div>
           </div>
           <div class="buku-info">
@@ -157,9 +162,10 @@
           </div>
         </div>
 
+        <!-- TENTANG KAMU -->
         <div class="buku-card" data-kategori="roman">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#2d6a4f,#40916c)">
-            <span class="buku-emoji">💚</span>
+          <div class="buku-cover">
+            <img src="tentangkamu.jpg" alt="Cover Tentang Kamu" />
             <div class="buku-badge">Top Pick</div>
           </div>
           <div class="buku-info">
@@ -173,9 +179,10 @@
           </div>
         </div>
 
+        <!-- RINDU -->
         <div class="buku-card" data-kategori="keluarga">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#6a0572,#ab83a1)">
-            <span class="buku-emoji">🚂</span>
+          <div class="buku-cover">
+            <img src="rindu.jpg" alt="Cover Rindu" />
             <div class="buku-badge">Iconic</div>
           </div>
           <div class="buku-info">
@@ -189,9 +196,10 @@
           </div>
         </div>
 
+        <!-- BULAN -->
         <div class="buku-card" data-kategori="petualangan">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#1b4332,#52b788)">
-            <span class="buku-emoji">🌙</span>
+          <div class="buku-cover">
+            <img src="bulan.jpg" alt="Cover Bulan" />
             <div class="buku-badge">New</div>
           </div>
           <div class="buku-info">
@@ -205,9 +213,10 @@
           </div>
         </div>
 
+        <!-- PULANG -->
         <div class="buku-card" data-kategori="roman">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#7b2d8b,#e040fb)">
-            <span class="buku-emoji">🛤️</span>
+          <div class="buku-cover">
+            <img src="pulang.jpg" alt="Cover Pulang" />
             <div class="buku-badge">Populer</div>
           </div>
           <div class="buku-info">
@@ -221,9 +230,10 @@
           </div>
         </div>
 
+        <!-- MOGA BUNDA -->
         <div class="buku-card" data-kategori="keluarga">
-          <div class="buku-cover" style="background:linear-gradient(135deg,#c77dff,#7b2ff7)">
-            <span class="buku-emoji">👧</span>
+          <div class="buku-cover">
+            <img src="mogabunda.jpg" alt="Cover Moga Bunda Disayang Allah" />
             <div class="buku-badge">Menyentuh</div>
           </div>
           <div class="buku-info">
@@ -233,6 +243,108 @@
             <div class="buku-footer">
               <span class="harga">Rp 72.000</span>
               <button class="btn-beli" onclick="tambahKeranjang('Moga Bunda Disayang Allah', 72000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TANAH PARA BANDIT -->
+        <div class="buku-card" data-kategori="thriller">
+          <div class="buku-cover">
+            <img src="tanahparabandit.jpg" alt="Cover Tanah Para Bandit" />
+            <div class="buku-badge">Baru</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Thriller</span>
+            <h3>Tanah Para Bandit</h3>
+            <p>Kisah penuh ketegangan tentang keberanian dan keadilan di tanah yang penuh kejahatan.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 93.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Tanah Para Bandit', 93000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEGERI PARA BEDEBAH -->
+        <div class="buku-card" data-kategori="thriller">
+          <div class="buku-cover">
+            <img src="negeribedebah.jpg" alt="Cover Negeri Para Bedebah" />
+            <div class="buku-badge">Bestseller</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Thriller</span>
+            <h3>Negeri Para Bedebah</h3>
+            <p>Pertarungan seorang konsultan keuangan melawan mafia perbankan yang menggurita.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 91.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Negeri Para Bedebah', 91000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- JANJI -->
+        <div class="buku-card" data-kategori="roman">
+          <div class="buku-cover">
+            <img src="janji.jpg" alt="Cover Janji" />
+            <div class="buku-badge">Populer</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Roman</span>
+            <h3>Janji</h3>
+            <p>Sebuah janji yang merentang waktu puluhan tahun, tentang kesetiaan dan pengorbanan sejati.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 88.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Janji', 88000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIA ADALAH KAKAKKU -->
+        <div class="buku-card" data-kategori="keluarga">
+          <div class="buku-cover">
+            <img src="diabkakakku.jpg" alt="Cover Dia Adalah Kakakku" />
+            <div class="buku-badge">Menyentuh</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Keluarga</span>
+            <h3>Dia Adalah Kakakku</h3>
+            <p>Kisah haru tentang ikatan saudara yang tak lekang oleh waktu dan jarak.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 78.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Dia Adalah Kakakku', 78000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SI ANAK PEMBERANI -->
+        <div class="buku-card" data-kategori="anak">
+          <div class="buku-cover">
+            <img src="sianakrerani.jpg" alt="Cover Si Anak Pemberani" />
+            <div class="buku-badge">Anak</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Anak</span>
+            <h3>Si Anak Pemberani</h3>
+            <p>Kisah inspiratif anak-anak Nusantara yang tumbuh dengan keberanian dan semangat pantang menyerah.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 75.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Si Anak Pemberani', 75000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- HELLO -->
+        <div class="buku-card" data-kategori="roman">
+          <div class="buku-cover">
+            <img src="hello.jpg" alt="Cover Hello" />
+            <div class="buku-badge">Terbaru</div>
+          </div>
+          <div class="buku-info">
+            <span class="kategori-tag">Roman</span>
+            <h3>Hello</h3>
+            <p>Pertemuan yang tak terduga dan percakapan sederhana yang mengubah segalanya.</p>
+            <div class="buku-footer">
+              <span class="harga">Rp 86.000</span>
+              <button class="btn-beli" onclick="tambahKeranjang('Hello', 86000)">+ Keranjang</button>
             </div>
           </div>
         </div>
