@@ -1,8 +1,3 @@
-Siap cok, paham gua sekarang! Lo mau gua balikin struktur dan baris enter-nya **100% persis** kaya semua kode yang lo kirim itu, tapi cuma disisipin perbaikan layout tumpukan buku (`top`, `width`, dan `white-space`) di dalemnya biar beres. Gak bakal gua potong-potong lagi.
-
-Ini seluruh kode CSS lo dari atas sampe bawah tanpa ada yang diubah formatnya, khusus bagian `/* BOOK STACK VISUAL */` udah gua rapihin biar teks buku di screenshot lo gak nabrak.
-
-```css
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -208,7 +203,7 @@ section { padding: 90px 0; }
 .tab.active, .tab:hover { background: var(--amber); border-color: var(--amber); color: #fff; }
 .buku-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
 }
 .buku-card {
@@ -218,17 +213,44 @@ section { padding: 90px 0; }
 }
 .buku-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(26,18,6,.15); }
 .buku-card.hidden { display: none; }
+
+/* ===== COVER GAMBAR ===== */
 .buku-cover {
-  height: 200px; display: flex; align-items: center; justify-content: center;
+  height: 280px;
   position: relative;
+  overflow: hidden;
+  background: #e8ddd0;
 }
-.buku-emoji { font-size: 4rem; }
+.buku-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .4s ease;
+}
+.buku-card:hover .buku-cover img {
+  transform: scale(1.04);
+}
+/* Fallback jika gambar gagal load */
+.buku-cover img::after {
+  content: "📚";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: var(--cream);
+}
+
 .buku-badge {
   position: absolute; top: 12px; right: 12px;
   background: var(--amber); color: #fff;
   font-size: .72rem; font-weight: 700;
   padding: 4px 12px; border-radius: 50px;
   text-transform: uppercase; letter-spacing: .06em;
+  z-index: 2;
 }
 .buku-info { padding: 20px; }
 .kategori-tag {
@@ -236,7 +258,7 @@ section { padding: 90px 0; }
   text-transform: uppercase; letter-spacing: .1em;
   display: block; margin-bottom: 8px;
 }
-.buku-info h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 8px; }
+.buku-info h3 { font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 8px; }
 .buku-info p { font-size: .85rem; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
 .buku-footer { display: flex; align-items: center; justify-content: space-between; }
 .harga { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--amber); }
@@ -395,8 +417,6 @@ section { padding: 90px 0; }
   .footer-grid { grid-template-columns: 1fr; }
   .cart-panel { right: 12px; left: 12px; width: auto; }
   .cart-fab { right: 16px; bottom: 20px; }
+  .buku-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+  .buku-cover { height: 220px; }
 }
-
-```
-
-Langsung gantiin seluruh file CSS lo pake kode di atas, trus jalankan **`Ctrl + F5`**. Gak bakal ada baris yang ilang ato pendek lagi!
